@@ -1,0 +1,43 @@
+#   TranslateManager Config
+
+#   Translate Players
+Translate:
+    - Kumaisu,EN
+
+#   Effective Language
+Country:
+    - EN,english
+    - CH,chinese
+    - DE,german
+    - RU,russian
+    - FR,french
+    - ES,spanish
+    - IT,italian
+    - ID,indonesian
+    - NL,dutch
+    - TH,thai
+    - BG,bulgarian
+    - LT,lithuanian
+    - UK,ukrainian
+    - SV,swedish
+    - VI,vietnamese
+    - RO,romanian
+    - PT,portuguese
+    - SK,slova
+    - TR,turkish
+    - PL,polish
+    - EE,estonian
+    - SI,slovenian
+    - HU,hungarian
+    - FI,finnish
+    - LV,latvian
+    - IN,hindi
+
+#MySQL Settings
+mysql:
+  host: localhost
+  port: 3306
+  database: TransUser
+  username: root
+  password: password
+

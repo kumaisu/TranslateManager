@@ -1,0 +1,16 @@
+name: TranslateManager
+version: 0.0.1
+main: com.mycompany.translatemanager.TranslateManager
+description: Translate from GoogleTranslate
+author: Kumaisu
+database: true
+commands:
+    trans:
+        description: Translate Command
+        aliases: tr
+        permission: TransMan.Translate
+        permission-message: You do not have permission.
+        default: op
+        usage: |
+            /<command> [Language] [Message]
+            /<command> reload
