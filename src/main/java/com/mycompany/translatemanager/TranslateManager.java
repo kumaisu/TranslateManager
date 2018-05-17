@@ -7,6 +7,8 @@ package com.mycompany.translatemanager;
 
 import java.net.MalformedURLException;
 import java.lang.reflect.*;
+import java.util.Iterator;
+import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -69,7 +71,12 @@ public class TranslateManager extends JavaPlugin implements Listener {
                     String OrgMessage;
                     
                     if ( config.getCountry( GetLang ).equals( "Space" ) ) {
-                        Prt( player, "Effective language: EN, DE, RU, FR, ES" );
+                        List GLL = config.getLangs();
+                        String LM = "Language: ";
+                        for ( Iterator it = GLL.iterator(); it.hasNext(); ) {
+                            LM += (String) it.next() + " ";
+                        }
+                        Prt( player, LM );
                         return false;
                     } else {
                         OrgMessage = args[1];
@@ -81,7 +88,7 @@ public class TranslateManager extends JavaPlugin implements Listener {
                             }
                         }
 
-                        RetMessage = new TransText( URL +  config.getCountry( GetLang ) + "/", player ).connect( OrgMessage.replace( " ", "%20" ), "JA" + GetLang );
+                        RetMessage = new TransText( URL +  config.getCountry( GetLang ) + "/", player ).connect( OrgMessage.replace( " ", "%20" ), config.getBaseLanguage() + GetLang );
                     }
                     //  翻訳文＋元の文章を括弧内に表示
                     RetMessage += ChatColor.YELLOW + " (" + OrgMessage + ")[Translate " + GetLang + "]";
@@ -141,7 +148,7 @@ public class TranslateManager extends JavaPlugin implements Listener {
 
         //  日本語の場合は変換不要なのでキャンセル
         //  if ( Player2ByteLang.equals( "JP" ) ) return;
-        if ( Player2ByteLang.equals( "JA" ) ) return;
+        if ( Player2ByteLang.equals( config.getBaseLanguage() ) ) return;
         
         //  台湾、中国の場合、ZHとなってしまうが、TranslateAPI上はCHなので強制変換
         if ( Player2ByteLang.equals( "ZH" ) ) Player2ByteLang = "CH";
@@ -154,14 +161,10 @@ public class TranslateManager extends JavaPlugin implements Listener {
         if ( TargetCountry.equals( "Space" ) ) return;
         URL += TargetCountry + "/";
 
-        //  共通の言語の場合、強制的に2Byte文字を変更（暫定対応）
-        //  if ( TargetCountry.equals( "english" ) ) Player2ByteLang = "EN";
-        //  if ( TargetCountry.equals( "chinese" ) ) Player2ByteLang = "CN";
-
         //  翻訳開始
         try {
             String BeforMessage = ChatColor.YELLOW + " (" + getMessage + ")[Translate " +  Player2ByteLang + "]";
-            String TranslationMessage = new TransText( URL, event.getPlayer() ).connect( getMessage.replace( " ", "%20" ), Player2ByteLang + "JA" );
+            String TranslationMessage = new TransText( URL, event.getPlayer() ).connect( getMessage.replace( " ", "%20" ), Player2ByteLang + config.getBaseLanguage() );
             if ( !BeforMessage.contains( TranslationMessage ) ) {
                 event.setMessage( TranslationMessage + BeforMessage );
                 //  event.setMessage( "[ORG] " + getMessage );

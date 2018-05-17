@@ -23,8 +23,11 @@ public class Config {
     private final Plugin plugin;
     private FileConfiguration config = null;
 
+    private String BaseLang;
     //  変換するプレイヤー名
     private List< String > LangPlayer;
+    //  対応している言語リスト
+    private List< String > LangList;
     //  US,JPなど
     private Map< String, String > Language;
     //  english,japanese など
@@ -42,7 +45,7 @@ public class Config {
     public void load() {
         //  ワーク変数
         List< String > getstr;
-        
+
         // 設定ファイルを保存
         plugin.saveDefaultConfig();
         if (config != null) { // configが非null == リロードで呼び出された
@@ -51,6 +54,8 @@ public class Config {
         }
         config = plugin.getConfig();
 
+        BaseLang = config.getString( "BaseLanguage" );
+        
         LangPlayer = new ArrayList<>();
         Language = new HashMap<>();
         getstr = ( List< String > ) config.getList( "Translate" );
@@ -60,10 +65,12 @@ public class Config {
             Language.put( param[0], param[1] );
         }
 
+        LangList = new ArrayList<>();
         Country = new HashMap<>();
         getstr = ( List< String > ) config.getList( "Country" );
         for( int i = 0; i<getstr.size(); i++ ) {
             String[] param = getstr.get( i ).split(",");
+            LangList.add( param[0] );
             Country.put( param[0], param[1] );
         }
     }
@@ -76,7 +83,11 @@ public class Config {
     public boolean getPlayer( String name ) {
         return LangPlayer.contains( name );
     }
-    
+
+    public String getBaseLanguage() {
+        return BaseLang;
+    }
+
     public String getLang( String PlayerName ) {
         if ( Language.containsKey( PlayerName ) ) return Language.get( PlayerName );
         return "EN";
@@ -87,4 +98,7 @@ public class Config {
         return "Space";
     }
     
+    public List getLangs(){
+        return LangList;
+    }
 }
