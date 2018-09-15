@@ -18,3 +18,7 @@ This plug-in translates into Japanese as appropriate according to the language s
 /trans [lang] [message]  
   
 langは2Byteの国コードを使用する(lang uses 2 byte country code)  
+  
+Contact is Discord Kitsune#5955  
+Discord Server https://discord.gg/AgX3UxR  
+
