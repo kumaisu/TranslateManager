@@ -140,6 +140,7 @@ public class TranslateManager extends JavaPlugin implements Listener {
         if ( getMessage.contains( "[Translate" ) ) return;
 
         String PlayerLang = getLanguage( event.getPlayer() );
+        if ( PlayerLang == null ) return;
         //  String Player2ByteLang = PlayerLang.substring( PlayerLang.indexOf( "_" ) + 1 ).toUpperCase();
         String Player2ByteLang = PlayerLang.substring( 0, 2 ).toUpperCase();
 

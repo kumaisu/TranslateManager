@@ -4,6 +4,7 @@ main: com.mycompany.translatemanager.TranslateManager
 description: Translate from GoogleTranslate
 author: Kumaisu
 database: true
+api-version: 1.14
 commands:
     trans:
         description: Translate Command
