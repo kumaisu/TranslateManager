@@ -1,7 +1,7 @@
 # TranslateManager
 Minecraft Plugin TranslateManager Repository
 
-**Overview**
+## Overview
   
 このプラグインは、マインクラフトの言語設定に応じて適宜、日本語へ翻訳を実施するものである  
 This plug-in translates into Japanese as appropriate according to the language setting of Maincraft  
@@ -11,6 +11,9 @@ This plug-in translates into Japanese as appropriate according to the language s
     Automatically convert from Japanese to other languages according to language settings of Minecraft client  
 2.  コマンドにより任意の言語へ日本語から変換が可能  
     Convert from Japanese to any language by command  
+
+## Operation check  
+Spigot Server 1.12.2 and 1.14.4  
 
 **Command:**
 

@@ -1,7 +1,7 @@
-name: TranslateManager
-version: 0.1
 main: com.mycompany.translatemanager.TranslateManager
-description: Translate from GoogleTranslate
+name: TranslateManager
+version: ${project.version}
+description: ${project.description}
 author: Kumaisu
 database: true
 api-version: 1.14
