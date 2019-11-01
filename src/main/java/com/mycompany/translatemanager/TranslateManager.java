@@ -29,6 +29,8 @@ public class TranslateManager extends JavaPlugin implements Listener {
     //  https://www.excite.co.jp/world/english/?before={hello}&wb_lp={ENJA}
     
     private Config config;
+    private String PlayerLang;
+    private String Player2ByteLang;
     
     @Override
     public void onEnable() {
@@ -139,16 +141,20 @@ public class TranslateManager extends JavaPlugin implements Listener {
 
         if ( getMessage.contains( "[Translate" ) ) return;
 
-        String PlayerLang = getLanguage( event.getPlayer() );
-        if ( PlayerLang == null ) return;
-        //  String Player2ByteLang = PlayerLang.substring( PlayerLang.indexOf( "_" ) + 1 ).toUpperCase();
-        String Player2ByteLang = PlayerLang.substring( 0, 2 ).toUpperCase();
-
         //  翻訳指定がある場合、ここで変更
-        if ( config.getPlayer( event.getPlayer().getDisplayName() ) ) Player2ByteLang = config.getLang( event.getPlayer().getDisplayName() );
+        if ( config.getPlayer( event.getPlayer().getName() ) ) {
+            Player2ByteLang = config.getLang( event.getPlayer().getName() );
+        } else {
+            //  プレイヤーの言語設定を取得するために遅延処理の後 Welcome メッセージの表示を行う
+            //  ラグが大きいが現状はこれが精一杯の状態
+            getServer().getScheduler().scheduleSyncDelayedTask( this, () -> {
+                PlayerLang = getLanguage( event.getPlayer() );
+            }, 100 );            
+            Player2ByteLang = PlayerLang.substring( 0, 2 ).toUpperCase();
+        }
 
         //  日本語の場合は変換不要なのでキャンセル
-        //  if ( Player2ByteLang.equals( "JP" ) ) return;
+        //  if ( Player2ByteLang.equals( "JA" ) ) return;
         if ( Player2ByteLang.equals( config.getBaseLanguage() ) ) return;
         
         //  台湾、中国の場合、ZHとなってしまうが、TranslateAPI上はCHなので強制変換
