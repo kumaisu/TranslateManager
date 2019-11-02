@@ -145,11 +145,8 @@ public class TranslateManager extends JavaPlugin implements Listener {
         if ( config.getPlayer( event.getPlayer().getName() ) ) {
             Player2ByteLang = config.getLang( event.getPlayer().getName() );
         } else {
-            //  プレイヤーの言語設定を取得するために遅延処理の後 Welcome メッセージの表示を行う
-            //  ラグが大きいが現状はこれが精一杯の状態
-            getServer().getScheduler().scheduleSyncDelayedTask( this, () -> {
-                PlayerLang = getLanguage( event.getPlayer() );
-            }, 100 );            
+            PlayerLang = getLanguage( event.getPlayer() );
+            if ( PlayerLang == null ) return;
             Player2ByteLang = PlayerLang.substring( 0, 2 ).toUpperCase();
         }
 
